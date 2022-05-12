@@ -14,4 +14,10 @@ void main() {
     disposable.dispose();
     expect(_invoked, 1);
   });
+
+  test('disposable empty', () async {
+    final emptyDisposable1 = Disposable.empty();
+    final emptyDisposable2 = Disposable.empty();
+    expect(emptyDisposable1, emptyDisposable2);
+  });
 }
