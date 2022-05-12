@@ -3,9 +3,15 @@ import 'package:test/test.dart';
 
 void main() {
 
-  test('disposal', () async {
+  test('disposable dispose invoked', () async {
     
-    final value = hello;
-    expect(value, 'hello');
+    int _invoked = 0;
+    final disposable = Disposable(dispose: () {
+      _invoked += 1;
+    });
+    
+    expect(_invoked, 0);
+    disposable.dispose();
+    expect(_invoked, 1);
   });
 }

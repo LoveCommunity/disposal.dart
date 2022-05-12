@@ -1,1 +1,1 @@
-export 'src/hello.dart';
+export 'src/disposable.dart';
