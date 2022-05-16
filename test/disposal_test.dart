@@ -16,4 +16,10 @@ void main() {
     expect(_invoked, 1);
 
   });
+
+  test('disposable empty', () {
+    final empty1 = Disposable.empty;
+    final empty2 = Disposable.empty;
+    expect(empty1, empty2);
+  });
 }
