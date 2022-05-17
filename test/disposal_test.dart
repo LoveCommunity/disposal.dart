@@ -5,15 +5,15 @@ void main() {
 
   test('disposable dispose invoked', () {
 
-    int _invoked = 0;
+    int invoked = 0;
 
     final disposable = Disposable(() {
-      _invoked += 1;
+      invoked += 1;
     });
 
-    expect(_invoked, 0);
+    expect(invoked, 0);
     disposable.dispose();
-    expect(_invoked, 1);
+    expect(invoked, 1);
 
   });
 
@@ -25,24 +25,24 @@ void main() {
 
   test('disposable addWith', () {
 
-    final List<String> _invokes = [];
+    final List<String> invokes = [];
 
     final disposable = Disposable(() {
-      _invokes.add('dispose');
+      invokes.add('dispose');
     });
     
     final newDisposable = disposable.addWith(
       beforeDispose: () {
-        _invokes.add('beforeDispose');
+        invokes.add('beforeDispose');
       },
       afterDispose: () {
-        _invokes.add('afterDispose');
+        invokes.add('afterDispose');
       },
     );
 
-    expect(_invokes, []);
+    expect(invokes, []);
     newDisposable.dispose();
-    expect(_invokes, [
+    expect(invokes, [
       'beforeDispose',
       'dispose',
       'afterDispose',
