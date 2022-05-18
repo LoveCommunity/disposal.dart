@@ -49,4 +49,93 @@ void main() {
     ]);
 
   });
+
+  test('disposable combine default order', () {
+
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+    
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+    
+    final newDisposable = Disposable.combine(
+      children: [
+        disposable1,
+        disposable2,
+      ],
+    );
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'dispose2',
+      'dispose1',
+    ]);
+
+  });
+
+  test('disposable combine descending order', () {
+
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+    
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+    
+    final newDisposable = Disposable.combine(
+      reverse: true,
+      children: [
+        disposable1,
+        disposable2,
+      ],
+    );
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'dispose2',
+      'dispose1',
+    ]);
+
+  });
+
+  test('disposable combine ascending order', () {
+
+    final List<String> invokes = [];
+    
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+    
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+
+    final newDisposable = Disposable.combine(
+      reverse: false,
+      children: [
+        disposable1,
+        disposable2,
+      ],
+    );
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'dispose1',
+      'dispose2',
+    ]);
+
+  });
 }
+
+
+
