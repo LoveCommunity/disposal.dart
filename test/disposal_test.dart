@@ -135,6 +135,83 @@ void main() {
     ]);
 
   });
+
+  test('single assignment disposable assign then dispose', () {
+
+    int invoked = 0;
+
+    final disposable = Disposable(() {
+      invoked += 1;
+    });
+
+    final singleAssignmentDisposable = SingleAssignmentDisposable();
+
+    singleAssignmentDisposable.assignDisposable(disposable);
+    expect(invoked, 0);
+
+    singleAssignmentDisposable.dispose();
+    expect(invoked, 1);
+  });
+
+  test('single assignment disposable dispose then assign', () {
+
+    int invoked = 0;
+
+    final disposable = Disposable(() {
+      invoked += 1;
+    });
+
+    final singleAssignmentDisposable = SingleAssignmentDisposable();
+
+    singleAssignmentDisposable.dispose();
+    expect(invoked, 0);
+
+    singleAssignmentDisposable.assignDisposable(disposable);
+    expect(invoked, 1);
+  });
+
+  test('single assignment disposable reassign throws', () {
+
+    final disposable1 = Disposable(() {});
+    final disposable2 = Disposable(() {});
+
+    final singleAssignmentDisposable = SingleAssignmentDisposable();
+
+    singleAssignmentDisposable.assignDisposable(disposable1);
+
+    expect(
+      () {
+        singleAssignmentDisposable.assignDisposable(disposable2);
+      },
+      throwsA(
+        isA<StateError>()
+          .having(
+            (error) => error.toString(),
+            'description',
+            contains('disposable has been assigned before and can be assigned only one time!')
+          )
+      ),
+    );
+  });
+
+  test('single assignment disposable dispose multiple times', () {
+
+    int invoked = 0;
+
+    final disposable = Disposable(() {
+      invoked += 1;
+    });
+
+    final singleAssignmentDisposable = SingleAssignmentDisposable();
+    
+    singleAssignmentDisposable.assignDisposable(disposable);
+
+    expect(invoked, 0);
+    singleAssignmentDisposable.dispose();
+    expect(invoked, 1);
+    singleAssignmentDisposable.dispose();
+    expect(invoked, 1);
+  });
 }
 
 
