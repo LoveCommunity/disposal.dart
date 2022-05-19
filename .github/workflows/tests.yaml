@@ -30,7 +30,7 @@ jobs:
           --pause-isolates-on-exit 
           --enable_asserts
           --enable-vm-service=1212 
-          test/typedef_foundation_test.dart &
+          test/disposal_test.dart &
       - name: Collect coverage
         run: nohup dart pub global run coverage:collect_coverage
           --port=1212
