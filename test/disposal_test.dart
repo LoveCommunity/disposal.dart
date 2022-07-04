@@ -27,7 +27,7 @@ void main() {
     Disposable.empty.dispose();
   });
 
-  test('disposable addWith', () {
+  test('disposable addWith before and after dispose', () {
 
     final List<String> invokes = [];
 
@@ -50,6 +50,70 @@ void main() {
       'beforeDispose',
       'dispose',
       'afterDispose',
+    ]);
+
+  });
+
+  test('disposable addWith before dispose', () {
+
+    final List<String> invokes = [];
+
+    final disposable = Disposable(() {
+      invokes.add('dispose');
+    });
+    
+    final newDisposable = disposable.addWith(
+      beforeDispose: () {
+        invokes.add('beforeDispose');
+      },
+    );
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'beforeDispose',
+      'dispose',
+    ]);
+
+  });
+
+  test('disposable addWith after dispose', () {
+
+    final List<String> invokes = [];
+
+    final disposable = Disposable(() {
+      invokes.add('dispose');
+    });
+    
+    final newDisposable = disposable.addWith(
+      afterDispose: () {
+        invokes.add('afterDispose');
+      },
+    );
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'dispose',
+      'afterDispose',
+    ]);
+
+  });
+
+  test('disposable addWith nothing', () {
+
+    final List<String> invokes = [];
+
+    final disposable = Disposable(() {
+      invokes.add('dispose');
+    });
+    
+    final newDisposable = disposable.addWith();
+
+    expect(invokes, []);
+    newDisposable.dispose();
+    expect(invokes, [
+      'dispose',
     ]);
 
   });
