@@ -1,6 +1,7 @@
 
 import 'package:meta/meta.dart';
 
+import '../shared/dispose_all.dart';
 import 'disposable.dart';
 
 @internal
@@ -9,17 +10,15 @@ class CombineDisposable implements Disposable {
   CombineDisposable({
     required List<Disposable> children,
     bool reverse = true,
-  }): _children = reverse
-        ? children.reversed
-        : children;
+  }): _children = children,
+    _reverse = reverse;
 
-  final Iterable<Disposable> _children;
+  final List<Disposable> _children;
+  final bool _reverse;
 
   @override
   void dispose() {
-    for (final child in _children) {
-      child.dispose();
-    }  
+    disposeAll(_children, _reverse);
   }
 }
 
