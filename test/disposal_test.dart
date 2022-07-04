@@ -23,6 +23,10 @@ void main() {
     expect(empty1, empty2);
   });
 
+  test('disposable empty dispose not throw error', () {
+    Disposable.empty.dispose();
+  });
+
   test('disposable addWith', () {
 
     final List<String> invokes = [];
