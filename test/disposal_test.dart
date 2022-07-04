@@ -212,6 +212,152 @@ void main() {
     singleAssignmentDisposable.dispose();
     expect(invoked, 1);
   });
+
+  test('composite disposable default order', () {
+    
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+
+    final compositeDisposable = CompositeDisposable()
+      ..addDisposables([
+        disposable1,
+        disposable2,
+      ]);
+
+    expect(invokes, []);
+    compositeDisposable.dispose();
+    expect(invokes, [
+      'dispose2',
+      'dispose1',
+    ]);
+
+  });
+
+  test('composite disposable descending order', () {
+    
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+
+    final compositeDisposable = CompositeDisposable(
+      reverseDispose: true,
+    )..addDisposables([
+      disposable1,
+      disposable2,
+    ]);
+
+    expect(invokes, []);
+    compositeDisposable.dispose();
+    expect(invokes, [
+      'dispose2',
+      'dispose1',
+    ]);
+
+  });
+
+  test('composite disposable ascending order', () {
+    
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+
+    final compositeDisposable = CompositeDisposable(
+      reverseDispose: false,
+    )..addDisposables([
+      disposable1,
+      disposable2,
+    ]);
+
+    expect(invokes, []);
+    compositeDisposable.dispose();
+    expect(invokes, [
+      'dispose1',
+      'dispose2',
+    ]);
+
+  });
+
+  test('composite disposable addDisposables after disposed', () {
+
+    final List<String> invokes = [];
+
+    final disposable1 = Disposable(() {
+      invokes.add('dispose1');
+    });
+
+    final disposable2 = Disposable(() {
+      invokes.add('dispose2');
+    });
+
+    final compositeDisposable = CompositeDisposable()
+      ..dispose();
+
+    expect(invokes, []);
+    compositeDisposable.addDisposables([
+      disposable1,
+      disposable2,
+    ]);
+    expect(invokes, [
+      'dispose2',
+      'dispose1',
+    ]);
+  });
+
+  test('composite disposable addDisposable after disposed', () {
+    
+    int invokes = 0;
+
+    final disposable = Disposable(() {
+      invokes += 1;
+    });
+
+    final compositeDisposable = CompositeDisposable()
+      ..dispose();
+    
+    expect(invokes, 0);
+    compositeDisposable.addDisposable(disposable);
+    expect(invokes, 1);
+
+  });
+
+  test('composite disposable dispose multiple times', () {
+    
+    int invokes = 0;
+
+    final disposable = Disposable(() {
+      invokes += 1;
+    });
+
+    final compositeDisposable = CompositeDisposable()
+      ..addDisposable(disposable);
+
+    expect(invokes, 0);
+    compositeDisposable.dispose();
+    expect(invokes, 1);
+    compositeDisposable.dispose();
+    expect(invokes, 1);
+
+  });
+
 }
 
 
