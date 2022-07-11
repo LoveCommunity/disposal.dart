@@ -3,7 +3,7 @@ import 'package:typedef_foundation/typedef_foundation.dart';
 import 'disposable_function.dart';
 import 'empty_disposable.dart';
 import 'add_with_disposable.dart';
-import 'combine_disposable.dart';
+import 'disposable_combine.dart';
 
 abstract class Disposable {
 
@@ -18,7 +18,7 @@ abstract class Disposable {
   factory Disposable.combine({
     required List<Disposable> children,
     bool reverse,
-  }) = CombineDisposable;
+  }) = DisposableCombine;
 }
 
 extension DisposableX on Disposable {
