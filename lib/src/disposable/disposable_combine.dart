@@ -5,9 +5,9 @@ import '../shared/dispose_all.dart';
 import 'disposable.dart';
 
 @internal
-class CombineDisposable implements Disposable {
+class DisposableCombine implements Disposable {
   
-  CombineDisposable({
+  DisposableCombine({
     required List<Disposable> children,
     bool reverse = true,
   }): _children = children,
