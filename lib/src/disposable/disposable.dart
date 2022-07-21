@@ -16,7 +16,7 @@ abstract class Disposable {
   static const Disposable empty = EmptyDisposable();
 
   factory Disposable.combine({
-    required List<Disposable> children,
+    required List<Disposable> disposables,
     bool reverse,
   }) = DisposableCombine;
 }
@@ -30,7 +30,7 @@ extension DisposableX on Disposable {
     return AddWithDisposable(
       beforeDispose: beforeDispose,
       afterDispose: afterDispose,
-      child: this,
+      disposable: this,
     );
   }
 }

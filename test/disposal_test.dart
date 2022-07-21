@@ -131,7 +131,7 @@ void main() {
     });
     
     final newDisposable = Disposable.combine(
-      children: [
+      disposables: [
         disposable1,
         disposable2,
       ],
@@ -160,7 +160,7 @@ void main() {
     
     final newDisposable = Disposable.combine(
       reverse: true,
-      children: [
+      disposables: [
         disposable1,
         disposable2,
       ],
@@ -189,7 +189,7 @@ void main() {
 
     final newDisposable = Disposable.combine(
       reverse: false,
-      children: [
+      disposables: [
         disposable1,
         disposable2,
       ],

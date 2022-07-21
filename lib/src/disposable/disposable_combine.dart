@@ -8,17 +8,17 @@ import 'disposable.dart';
 class DisposableCombine implements Disposable {
   
   DisposableCombine({
-    required List<Disposable> children,
+    required List<Disposable> disposables,
     bool reverse = true,
-  }): _children = children,
+  }): _disposables = disposables,
     _reverse = reverse;
 
-  final List<Disposable> _children;
+  final List<Disposable> _disposables;
   final bool _reverse;
 
   @override
   void dispose() {
-    disposeAll(_children, _reverse);
+    disposeAll(_disposables, _reverse);
   }
 }
 
