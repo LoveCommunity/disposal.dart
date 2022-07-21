@@ -1,3 +1,7 @@
+## 0.1.0-alpha.3
+
+* rename `children` to `disposables`
+
 ## 0.1.0-alpha.2
 
 * add `CompositeDisposable`
