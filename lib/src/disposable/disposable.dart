@@ -30,7 +30,7 @@ extension DisposableX on Disposable {
     return AddWithDisposable(
       beforeDispose: beforeDispose,
       afterDispose: afterDispose,
-      child: this,
+      disposable: this,
     );
   }
 }
