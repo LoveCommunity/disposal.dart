@@ -1,3 +1,8 @@
+## 0.1.0-alpha.5
+
+- refactor 
+  - improve max sdk constrain to 4.0.0  [\#31](https://github.com/LoveCommunity/disposal.dart/pull/31)
+  
 ## 0.1.0-alpha.4
 
 - cicd 

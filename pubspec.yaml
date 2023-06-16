@@ -1,5 +1,5 @@
 name: disposal
-version: 0.1.0-alpha.4
+version: 0.1.0-alpha.5
 description: Disposable interfaces used for managing resource disposal.
 homepage: https://github.com/LoveCommunity/disposal.dart
 
