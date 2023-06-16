@@ -4,7 +4,7 @@ description: Disposable interfaces used for managing resource disposal.
 homepage: https://github.com/LoveCommunity/disposal.dart
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies: 
   meta: ^1.3.0 
